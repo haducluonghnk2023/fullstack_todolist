@@ -1,0 +1,58 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: rikkei_postgres
+    restart: always
+
+    environment:
+      POSTGRES_DB: rikkei_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    networks:
+  backend:
+    build: ./be_demo_angular
+    image: ${DOCKER_USERNAME:-postgres}/rikkei-backend:latest
+    container_name: demo_backend
+    restart: always
+
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/rikkei_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 123456
+
+    depends_on:
+      - postgres
+
+    ports:
+      - "8080:8080"
+
+    networks:
+      - rikkei_network
+
+  frontend:
+    build: ./demo_angular
+    image: ${DOCKER_USERNAME:-postgres}/rikkei-frontend:latest
+    container_name: rikkei_frontend
+    restart: always
+
+    depends_on:
+      - backend
+
+    ports:
+      - "80:80"
+
+    networks:
+      - rikkei_network
+
+volumes:
+  postgres_data:
+
+networks:
+  rikkei_network:
+    driver: bridge

@@ -1,0 +1,16 @@
+@if (loading && todos.length === 0) {
+  <div class="loading">Đang tải...</div>
+} @else {
+  <ul class="todo-list">
+    @for (todo of todos; track todo.id) {
+      <app-todo-item
+        [todo]="todo"
+        (toggle)="onToggle($event)"
+        (edit)="onEdit($event)"
+        (remove)="onRemove($event)"
+      ></app-todo-item>
+    } @empty {
+      <li class="empty">Chưa có công việc nào!</li>
+    }
+  </ul>
+}

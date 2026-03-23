@@ -1,0 +1,16 @@
+Prerendered 0 static routes.
+Application bundle generation failed. [8.096 seconds]
+
+X [ERROR] NG9: Property 'clearError' does not exist on type 'TodoService'. [plugin angular-compiler]
+
+    src/app/features/todo/todo.component.html:5:44:
+      5 │     <div class="error" (click)="todoService.clearError()">
+        ╵                                             ~~~~~~~~~~
+
+  Error occurs in the template of component TodoComponent.
+
+    src/app/features/todo/todo.component.ts:20:15:
+      20 │   templateUrl: './todo.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~
+
+

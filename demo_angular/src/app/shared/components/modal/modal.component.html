@@ -1,0 +1,11 @@
+<div class="modal-overlay" (click)="onClose()">
+  <div class="modal {{ customClass }}" (click)="$event.stopPropagation()">
+    @if (title) {
+      <h3>{{ title }}</h3>
+    }
+    
+    <div class="modal-content">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

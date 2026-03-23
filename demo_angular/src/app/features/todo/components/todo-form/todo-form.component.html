@@ -1,0 +1,23 @@
+<div class="add-todo-container">
+  <div class="input-wrapper">
+    <input
+      type="text"
+      id="todo-input"
+      class="todo-input"
+      [(ngModel)]="newTodo"
+      placeholder=" "
+      (keyup.enter)="onSubmit()"
+    />
+    <label for="todo-input" class="todo-label">
+      Thêm công việc mới để bắt đầu...
+    </label>
+    <div class="input-glow"></div>
+  </div>
+
+  <button type="button" class="btn-add" (click)="onSubmit()" aria-label="Add Task">
+    <span class="btn-text">Thêm</span>
+    <svg xmlns="http://www.w3.org/2000/svg" class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+    </svg>
+  </button>
+</div>

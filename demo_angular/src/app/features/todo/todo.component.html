@@ -1,0 +1,49 @@
+<main class="todo-container">
+  <h1>{{ title }}</h1>
+
+  @if (error()) {
+    <div class="error" (click)="todoService.clearError()">
+      {{ error() }}
+      <span class="close-error" aria-label="Close Error">×</span>
+    </div>
+  }
+
+  <app-todo-form (add)="onAddTodo($event)"></app-todo-form>
+
+  <app-todo-list
+    [todos]="todos()"
+    [loading]="loading()"
+    (toggle)="onToggleTodo($event)"
+    (edit)="openEditModal($event)"
+    (remove)="openDeleteModal($event)"
+  ></app-todo-list>
+</main>
+
+<!-- Delete Modal -->
+@if (todoToDelete) {
+  <app-modal title="Xác nhận xóa" (close)="closeDeleteModal()">
+    <p>Bạn có chắc muốn xóa "{{ todoToDelete.text }}"?</p>
+    <div class="modal-actions">
+      <button type="button" class="btn-cancel" (click)="closeDeleteModal()">Hủy</button>
+      <button type="button" class="btn-confirm" (click)="confirmDelete()">Xóa</button>
+    </div>
+  </app-modal>
+}
+
+<!-- Edit Modal -->
+@if (todoToEdit) {
+  <app-modal title="Sửa công việc" customClass="modal-edit" (close)="closeEditModal()">
+    <input
+      type="text"
+      [(ngModel)]="editFormText"
+      placeholder="Nội dung..."
+      class="modal-input"
+      (keyup.enter)="saveEdit()"
+      autofocus
+    />
+    <div class="modal-actions modal-edit-actions">
+      <button type="button" class="btn-cancel" (click)="closeEditModal()">Hủy</button>
+      <button type="button" class="btn-save" (click)="saveEdit()">Lưu</button>
+    </div>
+  </app-modal>
+}
